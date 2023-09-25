@@ -1,9 +1,9 @@
-import { winProbability } from "@/lib/nash"
+import getPlayer from "@/lib/utrapi"
 
-export default function Home() {
-  const winProb = winProbability(1600, 1700)
+export default async function Home() {
+  const player = await getPlayer("215710")
 
   return (
-    <h1>{winProb}</h1>
+    <main>{player.firstName}</main>
   )
 }

@@ -1,5 +1,6 @@
 import functools
 import random
+import math
 from dataclasses import dataclass
 from itertools import permutations
 from typing import Callable, Generic, TypeVar
@@ -73,9 +74,7 @@ class Roster:
 
 def match_prob(player1: Player, player2: Player) -> float:
     diff = player1.rating - player2.rating
-    odds = 10 ** (diff / 400)
-    prob = odds / (1 + odds)
-    return prob
+    return 1 / (1 + math.e ** (-0.68776333 * diff))
 
 
 @functools.cache
@@ -119,27 +118,27 @@ def payoff(team1_roster: Roster, team2_roster: Roster) -> float:
 college_tennis = TwoPlayerNormalFormGame[Roster](
     strategy_profiles=(
         {
-            Roster(players=player_permutation)
-            for player_permutation in permutations((
-            # Roster(players=(
-                Player(name="A1", rating=2000),
-                Player(name="A2", rating=1920),
-                Player(name="A3", rating=1800),
-                Player(name="A4", rating=1700),
-                Player(name="A5", rating=1750),
-                Player(name="A6", rating=1500),
+            # Roster(players=player_permutation)
+            # for player_permutation in permutations((
+            Roster(players=(
+                Player(name="Emile Labrunie", rating=10.07),
+                Player(name="Steven Mccartney", rating=10.69),
+                Player(name="Bijan Shahriari", rating=10.01),
+                Player(name="Edan Shpigel", rating=9.05),
+                Player(name="Marcello Audino", rating=9.12),
+                Player(name="Victor-James Verhelst", rating=8.67),
             ))
         },
         {
             # Roster(players=player_permutation)
             # for player_permutation in permutations((
             Roster(players=(
-                Player(name="B1", rating=2300),
-                Player(name="B2", rating=2000),
-                Player(name="B3", rating=1825),
-                Player(name="B4", rating=1800),
-                Player(name="B5", rating=1705),
-                Player(name="B6", rating=500),
+                Player(name="Gabriel Champoux", rating=10.68),
+                Player(name="Solal Dia", rating=11.12),
+                Player(name="Philippe Giroux", rating=10.59),
+                Player(name="Tim Gicquel", rating=10.13),
+                Player(name="Andrei-Radu Ghita", rating=8.48),
+                Player(name="Hugo Sylvestre", rating=9.74),
             ))
             # ])
         },
